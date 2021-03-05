@@ -4,6 +4,8 @@
 
 此教程多为摘抄或自己归纳的，本人水平有限，望批评和指证错误！
 
+侵权联删，请多多包涵🙏🙏🙏
+
 参考资料：
 
 [1]<a href="https://www.selenium.dev/documentation/zh-cn/" style="text-decoration: None">Selenium中文文档</a>
