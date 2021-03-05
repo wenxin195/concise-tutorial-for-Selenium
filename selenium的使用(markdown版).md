@@ -108,7 +108,7 @@ driver.get('http://www.baidu.com')
 div = driver.find_element(By.ID, "lg")
 ```
 
-<img src="标签定位.png" alt="标签定位">
+<img src="imgs/Label position.png" alt="Label position">
 
 如示例所示，在 *WebDriver* 中定位元素是在 *WebDriver* 实例对象上完成的。 <code style="color: #ca7900">find_Element(<i>By</i>)</code> 方法返回另一个基本对象类型  *WebElement*。
 
@@ -310,7 +310,7 @@ page_text = driver.page_source
 
 <code style="color: #ca7900">find_Element</code> 方法现在支持<code style="color: #ca7900">with_Tag_Name()</code>新方法其可返回 *RelativeLocator* 相对定位对象。
 
-![relative_locators.png](relative_locators.png)
+<img src="imgs/relative_locators.png" alt="relative_locators">
 
 ## *above* 方法
 
