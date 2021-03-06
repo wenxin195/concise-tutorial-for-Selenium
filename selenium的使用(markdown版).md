@@ -1,29 +1,27 @@
+先导入必要的包：
 ```python
-from selenium.webdriver.common.print_page_options import PrintOptions
-from selenium.webdriver.support.relative_locator import with_tag_name
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 from selenium.webdriver import Chrome
 from selenium import webdriver
 ```
 
-
+我们可以创建一个基于 *Chrome* 浏览器的 *driver* 对象
 ```python
-driverpath = 'chromedriver'
+driverpath = 'chromedriver'  # chromedriver的路径
 driver = Chrome(driverpath)
 ```
 
 或用 *with* 关键字：
+
 ```python
-with Chrome() as driver:
-    pass
+with webdriver.Chrome() as driver:
+  # WebDriver 代码 …
+
+  # 在此缩进位置后 WebDriver 会自动退出
 ```
 
 # 浏览器导航
 
 ## 发起请求
-
 
 ```python
 driver.get('http://www.baidu.com')
@@ -31,13 +29,12 @@ driver.get('http://www.baidu.com')
 
 ## 获取当前 *URL*
 
-
 ```python
 driver.current_url
 ```
+    >>> 'http://www.baidu.com'
 
 ## 后退
-
 
 ```python
 driver.get('https://movie.douban.com')
@@ -46,13 +43,11 @@ driver.back()
 
 ## 前进
 
-
 ```python
 driver.forward()
 ```
 
-## 刷新
-
+## 刷新网页
 
 ```python
 driver.refresh()
@@ -60,20 +55,18 @@ driver.refresh()
 
 ## 获取标题
 
-
 ```python
 driver.title
 ```
+    >>> '豆瓣电影'
 
 ## 关闭窗口
-
 
 ```python
 driver.close()
 ```
 
 ## 在会话结束时退出浏览器
-
 
 ```python
 driver.quit()
@@ -90,12 +83,6 @@ finally:
 
 *Python* 的 *WebDriver* 现在支持 *Python* 上下文管理器，当使用 *with* 关键字时，可以在执行结束时自动退出驱动程序。
 
-```python
-with webdriver.Chrome() as driver:
-  # WebDriver 代码 …
-
-  # 在此缩进位置后 WebDriver 会自动退出
-```
 
 # 定位元素
 
@@ -103,7 +90,8 @@ with webdriver.Chrome() as driver:
 
 
 ```python
-# from selenium.webdriver.common.by import By
+from selenium.webdriver.common.by import By
+
 driver.get('http://www.baidu.com')
 div = driver.find_element(By.ID, "lg")
 ```
@@ -128,42 +116,42 @@ img = div.find_element(By.ID, "s_lg_img")
 <table>
     <thead>
         <tr>
-            <th>定位器 Locator</th>
+            <th>定位器 (<i>Locator</i>)</th>
             <th>描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>class name</td>
-            <td>定位class属性与搜索值匹配的元素（不允许使用复合类名）</td>
+            <td>CLASS_NAME</td>
+            <td>定位 <i>class</i> 属性与搜索值匹配的元素（不允许使用复合类名）</td>
         </tr>
         <tr>
-            <td>css selector</td>
-            <td>定位 CSS 选择器匹配的元素</td>
+            <td>CSS_SELECTOR</td>
+            <td>定位 <i>CSS</i> 选择器匹配的元素</td>
         </tr>
         <tr>
-            <td>id</td>
-            <td>定位 id 属性与搜索值匹配的元素</td>
+            <td>ID</td>
+            <td>定位 <i>id</i> 属性与搜索值匹配的元素</td>
         </tr>
         <tr>
-            <td>name</td>
-            <td>定位 name 属性与搜索值匹配的元素</td>
+            <td>NAME</td>
+            <td>定位 <i>name</i> 属性与搜索值匹配的元素</td>
         </tr>
         <tr>
-            <td>link text</td>
-            <td>定位link text可视文本与搜索值完全匹配的锚元素</td>
+            <td>LINK_TEXT</td>
+            <td>定位 <i>link text</i> 可视文本与搜索值完全匹配的元素</td>
         </tr>
         <tr>
-            <td>partial link text</td>
-            <td>定位link text可视文本部分与搜索值部分匹配的锚点元素。如果匹配多个元素，则只选择第一个元素。</td>
+            <td>PARTIAL_LINK_TEXT</td>
+            <td>定位 <i>link text</i> 可视文本部分与搜索值部分匹配的元素。如果匹配多个元素，则只选择第一个元素。</td>
         </tr>
         <tr>
-            <td>tag name</td>
+            <td>TAG_NAME</td>
             <td>定位标签名称与搜索值匹配的元素</td>
         </tr>
         <tr>
-            <td>xpath</td>
-            <td>定位与 XPath 表达式匹配的元素</td>
+            <td>XPATH</td>
+            <td>定位与 <i>XPath</i> 表达式匹配的元素</td>
         </tr>
     </tbody>
 </table>
@@ -182,7 +170,7 @@ img = div.find_element(By.ID, "s_lg_img")
 
 ## *Find Element From Element*
 
-此方法用于在父元素的上下文中查找子元素。为此，父 *WebElement* 与<code style="color: #ca7900">find_Element</code>链接并访问子元素.
+此方法用于在父元素的上下文中查找子元素。为此，父 *WebElement* 与<code style="color: #ca7900">find_Element</code>链接并访问子元素。
 
 
 ```python
@@ -193,7 +181,7 @@ search_box = search_form.find_element(By.NAME, "q")
 search_box.send_keys("webdriver")
 ```
 
-*Find Elements From Element* 方法用于在父元素的上下文中查找匹配子 *WebElement* 的列表。为此，父 *WebElement* 与<code style="color: #ca7900">find_Element</code>链接并访问子元素。这里就不做演示了。
+*Find Elements From Element* 方法用于在父元素的上下文中查找匹配子 *WebElement* 的列表。为此，父 *WebElement* 与<code style="color: #ca7900">find_Elements</code>链接并访问子元素。这里就不做演示了。
 
 ## *Get Active Element*
 
@@ -260,11 +248,12 @@ attr = driver.find_element(By.CSS_SELECTOR, "h1").tag_name
 
 
 ```python
-driver.get("https://www.example.com")
-    
-# Returns height, width, x and y coordinates referenced element
-res = driver.find_element(By.CSS_SELECTOR, "h1").rect
+driver.get("http://www.baidu.com")
+
+# 定位百度搜素框
+result = driver.find_element(By.ID, "kw").rect  
 ```
+    >>> {'height': 44, 'width': 548, 'x': 298, 'y': 188.39584350585938}
 
 ## 获取元素 *CSS* 值
 
@@ -272,21 +261,22 @@ res = driver.find_element(By.CSS_SELECTOR, "h1").rect
 
 
 ```python
-driver.get('https://www.example.com')
+driver.get('http://www.baidu.com')
 
-# Retrieves the computed style property 'color' of linktext
-cssValue = driver.findElement(By.LINK_TEXT, "More information...").value_of_css_property('color')
+# 获得 color 属性值
+cssValue = driver.find_element(By.ID, "su").value_of_css_property('color')
 ```
+    >>> rgba(255, 255, 255, 1)
 
 ## 获取元素文本
 
 
 ```python
-driver.get("https://www.example.com")
+driver.get("https://www.baidu.com")
 
-# Retrieves the text of the element
-text = driver.find_element(By.CSS_SELECTOR, "h1").text
+text = driver.find_element(By.CSS_SELECTOR, "#s-top-left > div > a").text
 ```
+    >>> '更多'
 
 ## 获取页面源码数据
 
@@ -317,7 +307,8 @@ page_text = driver.page_source
 返回当前指定元素位置上方的 *WebElement* 对象
 
 ```python
-# from selenium.webdriver.support.relative_locator import with_tag_name
+from selenium.webdriver.support.relative_locator import with_tag_name
+
 passwordField = driver.find_element(By.ID, "password")
 emailAddressField = driver.find_element(with_tag_name("input").above(passwordField))
 ```
@@ -362,11 +353,11 @@ emailAddressField = driver.find_element(with_tag_name("input").near(emailAddress
 
 框架是一种现在已被弃用的方法，用于从同一域中的多个文档构建站点布局。除非你使用的是 *HTML5* 之前的 *webapp*，否则你不太可能与他们合作。内嵌框架允许插入来自完全不同领域的文档，并且仍然经常使用。
 
-如果您需要使用框架或 *iframe*, *WebDriver* 允许以相同的方式使用它们。考虑 *iframe* 中的一个按钮。 如果我们使用浏览器开发工具检查元素，我们可能会看到以下内容:
+如果您需要使用框架或 *iframe*, *WebDriver* 允许以相同的方式使用它们。考虑 *iframe* 中的一个按钮。 如果我们使用浏览器开发工具检查元素，我们可能会看到以下内容：
 
 ```html
 <div id="modal">
-  <iframe id="buttonframe"name="myframe"src="https://seleniumhq.github.io">
+  <iframe id="buttonframe"name=" myframe" src="https://seleniumhq.github.io">
    <button>Click here</button>
  </iframe>
 </div>
@@ -379,7 +370,7 @@ emailAddressField = driver.find_element(with_tag_name("input").near(emailAddress
 driver.find_element(By.TAG_NAME, 'button').click()
 ```
 
-但是，如果 *iframe* 之外没有按钮，那么您可能会得到一个 **no such element** 的错误。 这是因为 *Selenium* 只知道顶层文档中的元素。为了与按钮进行交互，我们需要首先切换到框架， 这与切换窗口的方式类似。*WebDriver* 提供了三种切换到帧的方法。
+但是，如果 *iframe* 之外没有按钮，那么您可能会得到一个 <strong style="color: #ff6781">no such element</strong> 的错误。 这是因为 *Selenium* 只知道顶层文档中的元素。为了与按钮进行交互，我们需要首先切换到框架， 这与切换窗口的方式类似。*WebDriver* 提供了三种切换到帧的方法。
 
 ## 使用 *WebElement*
 
@@ -421,23 +412,21 @@ driver.switch_to.default_content()
 
 ## 获取窗口大小
 
-
 ```python
 # 分别获取每个尺寸
 width = driver.get_window_size().get("width")
 height = driver.get_window_size().get("height")
 ```
-
+    >>> 1050 700
 
 ```python
 # 或者存储尺寸并在以后查询它们
 size = driver.get_window_size()
-width1 = size.get("width")
-height1 = size.get("height")
+width = size.get("width")
+height = size.get("height")
 ```
 
 ## 设置窗口大小
-
 
 ```python
 driver.set_window_size(1024, 768)
@@ -447,25 +436,23 @@ driver.set_window_size(1024, 768)
 
 获取浏览器窗口左上角的坐标。
 
-
 ```python
 # 分别获取每个尺寸
 x = driver.get_window_position().get('x')
 y = driver.get_window_position().get('y')
 ```
-
+    >>> 10 10
 
 ```python
 # 或者存储尺寸并在以后查询它们
 position = driver.get_window_position()
-x1 = position.get('x')
-y1 = position.get('y')
+x = position.get('x')
+y = position.get('y')
 ```
 
 ## 设置窗口位置
 
 将窗口移动到设定的位置。
-
 
 ```python
 # 将窗口移动到主显示器的左上角
@@ -474,13 +461,11 @@ driver.set_window_position(0, 0)
 
 ## 最大化窗口
 
-
 ```python
 driver.maximize_window()
 ```
 
 ## 最小化窗口
-
 
 ```python
 driver.minimize_window()
@@ -488,8 +473,7 @@ driver.minimize_window()
 
 ## 全屏窗口
 
-填充整个屏幕，类似于在大多数浏览器中按下<kbd>F11</kbd>
-
+填充整个屏幕，相当于大多数浏览器中按下<kbd>F11</kbd>
 
 ```python
 driver.fullscreen_window()
@@ -497,16 +481,15 @@ driver.fullscreen_window()
 
 ## 屏幕截图
 
-
 ```python
 driver.save_screenshot('./image.png')
 ```
 
 也可以用于捕获当前浏览上下文的元素的屏幕截图。返回以 *Base64* 格式编码的屏幕截图。
 
-
 ```python
 driver.get('http://www.baidu.com')
+
 div = driver.find_element(By.ID, "lg")
 div.screenshot('./image.png')
 ```
@@ -518,7 +501,8 @@ div.screenshot('./image.png')
 注意: 此功能需要无头模式下的 *Chromium* 浏览器
 
 ```python
-# from selenium.webdriver.common.print_page_options import PrintOptions
+from selenium.webdriver.common.print_page_options import PrintOptions
+
 print_options = PrintOptions()
 print_options.page_ranges = ['1-2']
 
@@ -531,9 +515,9 @@ base64code = driver.print_page(print_options)
 
 对于某些操作，*Selenium API* 并没有提供。比如，下拉进度条。但是可以直接模拟运行 *JavaScript*，此时使用<code style="color: #ca7900">execute_script()</code>方法即可实现，
 
-
 ```python
 driver.get('https://www.jd.com/')
+
 driverdriver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
 driver.execute_script('alert("123")')
 ```
@@ -542,46 +526,46 @@ driver.execute_script('alert("123")')
 
 ## *Alerts* 警告框
 
-
 ```python
+from selenium.webdriver.support import expected_conditions as EC
+
 driver.get('https://www.selenium.dev/documentation/zh-cn/webdriver/js_alerts_prompts_and_confirmations')
 
 wait = WebDriverWait(driver, 10)
 
-# Click the link to activate the alert
+# 点击链接激活警报
 driver.find_element(By.LINK_TEXT, "查看样例警告框").click()
 
-# Wait for the alert to be displayed and store it in a variable
+# 等待警报显示并将其存储在一个变量中
 alert = wait.until(EC.alert_is_present())
 
-# Store the alert text in a variable
+# 将警告文本存储在一个变量中
 text = alert.text
 
-# Press the OK button
+# 按下 OK 按钮
 alert.accept()
 ```
 
 ## *Confirm* 确认框
 
-
 ```python
 driver.get('https://www.selenium.dev/documentation/zh-cn/webdriver/js_alerts_prompts_and_confirmations')
 
 wait = WebDriverWait(driver, 10)
 
-# Click the link to activate the alert
+# 点击链接激确认框
 driver.find_element(By.LINK_TEXT, "查看样例确认框").click()
 
-# Wait for the alert to be displayed
+# 等待确认框显示
 wait.until(EC.alert_is_present())
 
-# Store the alert in a variable for reuse
+# 存储在一个变量中以便重用
 alert = driver.switch_to.alert
 
-# Store the alert text in a variable
+# 将警告文本存储在一个变量中
 text = alert.text
 
-# Press the Cancel button
+# 按下取消按钮
 alert.dismiss()
 ```
 
@@ -595,19 +579,19 @@ driver.get('https://www.selenium.dev/documentation/zh-cn/webdriver/js_alerts_pro
 
 wait = WebDriverWait(driver, 10)
 
-# Click the link to activate the alert
+# 点击链接激活提示框
 driver.find_element(By.LINK_TEXT, "查看样例提示框").click()
 
-# Wait for the alert to be displayed
+# 等待提示框显示
 wait.until(EC.alert_is_present())
 
-# Store the alert in a variable for reuse
+# 存储在一个变量中以便重用
 alert = Alert(driver)
 
-# Type your message
+# 输入消息
 alert.send_keys("Selenium")
 
-# Press the OK button
+# 按下 OK 按钮
 alert.accept()
 ```
 
@@ -632,9 +616,11 @@ webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
 
 
 ```python
+from selenium.webdriver.common.keys import Keys
+
 driver.get("http://www.google.com")
 
-# Enter "webdriver" text and perform "ENTER" keyboard action
+# 输入 webdriver 文本并执行 Enter 动作
 driver.find_element(By.NAME, "q").send_keys("webdriver" + Keys.ENTER)bb
 ```
 
@@ -672,7 +658,7 @@ action.key_down(Keys.SHIFT).send_keys_to_element(search, "qwerty").key_up(Keys.S
 
 ## *clear*
 
-清除可编辑元素的内容。这仅适用于可编辑且可交互的元素, 否则 *Selenium* 将返回错误（无效的元素状态或元素不可交互）。
+清除可编辑元素的内容。这仅适用于可编辑且可交互的元素，*Selenium* 将返回错误（无效的元素状态或元素不可交互）。
 
 
 ```python
@@ -689,7 +675,6 @@ SearchInput.clear()
 # 无头浏览器
 
 ```python
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 chrome_options = Options()
@@ -700,10 +685,213 @@ chrome_options.add_argument('--disable-gpu')
 # *selenium* 规避被检测识别
 
 ```python
-from selenium.webdriver import Chrome
 from selenium.webdriver import ChromeOptions
 
 option = ChromeOptions()
 option.add_experimental_option('excludeSwitches', ['enable-automation'])
 driver = Chrome(options=option)
+```
+
+# *Select Element* 相关操作
+
+选择元素可能需要大量样板代码才能自动化。为了减少这种情况并使您的测试更干净，在 *Selenium* 的 *support* 包中有一个 *Select* 类。
+
+```python
+from selenium.webdriver.support.select import Select
+```
+
+假如，有这么一组 *Select* 标签：
+```html
+<select>
+    <option value=value1>Bread</option>
+    <option value=value2 selected>Milk</option>
+    <option value=value3>Cheese</option>
+</select>
+```
+
+参考 *select* 元素，基于 *WebElement* 创建一个 *Select*对象。
+
+```python
+select_element = driver.find_element(By.ID,'selectElementID')
+select_object = Select(select_element)
+```
+
+有三种方法可以从上述元素中选择第一个选项：
+```python
+# 根据 <Select> 元素的内部索引选择一个 <option>
+select_object.select_by_index(1)
+
+# 根据其 value 属性选择 <option>
+select_object.select_by_value('value1')
+
+# 根据文本选择一个 <option>
+select_object.select_by_visible_text('Bread')
+```
+当然，可以选择所有的 *option*：
+```python
+# 返回已选择选项的 WebElement 列表
+all_selected_options = select_object.all_selected_options
+
+# 返回一个 WebElement，它引用了通过遍历 DOM 找到的第一个选择选项
+first_selected_option = select_object.first_selected_option
+```
+
+或者可能只对 *select* 元素包含哪些 *option* 元素感兴趣：
+```python
+# 返回 <select> 元素包含的选项 WebElement
+all_available_options = select_object.options
+```
+
+如果要取消选择任何元素，现在有四种方法：
+
+```python
+# 根据 <select> 元素的内部索引取消选择 <option>
+select_object.deselect_by_index(1)
+
+# 根据 value 属性取消选择 <option>
+select_object.deselect_by_value('value1')
+
+# 根据文本取消选择 <option>
+select_object.deselect_by_visible_text('Bread')
+
+# 取消选择所有选中的 <option> 元素
+select_object.deselect_all()
+  
+```
+
+最后，一些 *select* 元素允许您选择多个选项。您可以通过使用以下命令确定您的 *select* 元素是否允许多选：
+
+```python
+does_this_allow_multiple_selections = select_object.is_multiple
+```
+
+# 鼠标动作
+
+## *clickAndHold*
+
+它将移动到该元素，然后在给定元素的中间单击（不释放）。
+```python
+# Navigate to url
+driver.get("http://www.google.com")
+
+# Store 'google search' button web element
+searchBtn = driver.find_element(By.LINK_TEXT, "Sign in")
+
+# Perform click-and-hold action on the element
+webdriver.ActionChains(driver).click_and_hold(searchBtn).perform()
+```
+
+## *contextClick*
+
+此方法首先将鼠标移动到元素的位置，然后在给定元素执行上下文点击（右键单击）。
+
+```python
+driver.get("http://www.google.com")
+
+# Store 'google search' button web element
+searchBtn = driver.find_element(By.LINK_TEXT, "Sign in")
+
+# Perform context-click action on the element
+webdriver.ActionChains(driver).context_click(searchBtn).perform()
+```
+
+## *doubleClick*
+
+它将移动到该元素，并在给定元素的中间双击。
+
+```python
+# Navigate to url
+driver.get("http://www.google.com")
+
+# Store 'google search' button web element
+searchBtn = driver.find_element(By.LINK_TEXT, "Sign in")
+
+# Perform double-click action on the element
+webdriver.ActionChains(driver).double_click(searchBtn).perform()
+```
+
+## *moveToElement*
+
+此方法将鼠标移到元素的中间。执行此操作时，该元素也会滚动到视图中。
+
+```python
+# Navigate to url
+driver.get("http://www.google.com")
+
+# Store 'google search' button web element
+gmailLink = driver.find_element(By.LINK_TEXT, "Gmail")
+
+# Performs mouse move action onto the element
+webdriver.ActionChains(driver).move_to_element(gmailLink).perform()
+```
+
+## *moveByOffset*
+
+此方法将鼠标从其当前位置（或 *(0, 0)*）移动给定的偏移量。如果坐标在视图窗口之外，则鼠标最终将在浏览器窗口之外。
+
+```python
+# Navigate to url
+driver.get("http://www.google.com")
+
+# Store 'google search' button web element
+gmailLink = driver.find_element(By.LINK_TEXT, "Gmail")
+#Set x and y offset positions of element
+xOffset = 100
+yOffset = 100
+# Performs mouse move action onto the element
+webdriver.ActionChains(driver).move_by_offset(xOffset,yOffset).perform()
+```
+
+## *dragAndDrop*
+
+此方法首先在源元素上单击并按住，然后移动到目标元素的位置后释放鼠标。
+
+```python
+# Navigate to url
+driver.get("https://crossbrowsertesting.github.io/drag-and-drop")
+
+# Store 'box A' as source element
+sourceEle = driver.find_element(By.ID, "draggable")
+# Store 'box B' as source element
+targetEle  = driver.find_element(By.ID, "droppable")
+# Performs drag and drop action of sourceEle onto the targetEle
+webdriver.ActionChains(driver).drag_and_drop(sourceEle,targetEle).perform()
+```
+
+## *dragAndDropBy*
+
+此方法首先在源元素上单击并按住，移至给定的偏移量后释放鼠标。
+
+```python
+# Navigate to url
+driver.get("https://crossbrowsertesting.github.io/drag-and-drop")
+
+# Store 'box A' as source element
+sourceEle = driver.find_element(By.ID, "draggable")
+# Store 'box B' as source element
+targetEle  = driver.find_element(By.ID, "droppable")
+targetEleXOffset = targetEle.location.get("x")
+targetEleYOffset = targetEle.location.get("y")
+
+# Performs dragAndDropBy onto the target element offset position
+webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
+```
+
+## *release*
+
+此操作将释放按下的鼠标左键。如果 *WebElement* 转移了，它将释放给定 *WebElement* 上按下的鼠标左键。
+
+```python
+# Navigate to url
+driver.get("https://crossbrowsertesting.github.io/drag-and-drop")
+
+# Store 'box A' as source element
+sourceEle = driver.find_element(By.ID, "draggable")
+# Store 'box B' as source element
+targetEle  = driver.find_element(By.ID, "droppable")
+
+# Performs dragAndDropBy onto the target element offset position
+webdriver.ActionChains(driver).click_and_hold(sourceEle).move_to_element(targetEle).perform()
+#Performs release event
+webdriver.ActionChains(driver).release().perform()
 ```
